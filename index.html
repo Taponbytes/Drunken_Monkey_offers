@@ -1,1 +1,75 @@
-fsdgsr
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drunken Monkey Offers</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+        }
+        video {
+            width: 100%;
+            display: none;
+        }
+        .buttons {
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <video id="video1" src="video1.mp4" controls></video>
+
+    </div>
+    <div class="buttons">
+        <button onclick="prevPage()">Previous</button>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const videos = document.querySelectorAll("video");
+        
+        function showPage(index) {
+            videos.forEach(video => {
+                video.style.display = "none";
+                video.pause();
+            });
+            videos[index].style.display = "block";
+        }
+        
+        function nextPage() {
+            if (currentPage < videos.length - 1) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+        
+        showPage(currentPage);
+    </script>
+</body>
+</html>
