@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Video Slides</title>
+    <title>drunken Monkey Offers</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
+            font-family: Arial, sans-serif;
         }
         .container {
             position: relative;
@@ -16,14 +17,14 @@
         }
         .slider {
             display: flex;
-            width: 400vw;
+            width: 300vw; /* Adjust based on the number of videos (3 videos = 300vw) */
             height: 100vh;
             transition: transform 0.5s ease-in-out;
         }
         video {
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
+            object-fit: cover; /* Ensures the video covers the full screen without distortion */
             flex-shrink: 0;
         }
         .buttons {
@@ -41,14 +42,21 @@
             padding: 15px;
             cursor: pointer;
             font-size: 18px;
+            z-index: 2; /* Ensure buttons are above the video */
+        }
+        @media (max-width: 768px) {
+            /* Adjust styles for tablets and mobile devices */
+            video {
+                object-fit: cover;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="slider">
-            <video src="Offers drunken monkey.mp4" autoplay loop muted></video>
-
+            <video src="Offers_drunk_monkey.mp4" autoplay loop muted></video>
+            
         </div>
         <div class="buttons">
             <button onclick="prevSlide()">&#10094;</button>
@@ -62,7 +70,7 @@
         const totalSlides = document.querySelectorAll("video").length;
         
         function updateSlide() {
-            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`; // Move the slider based on the current slide index
         }
         
         function nextSlide() {
