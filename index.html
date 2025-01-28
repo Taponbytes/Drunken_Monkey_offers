@@ -27,27 +27,23 @@
             object-fit: cover; /* Ensures the video covers the full screen without distortion */
             flex-shrink: 0;
         }
-        .buttons {
+        .page-number {
             position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-        button {
-            background: rgba(0, 0, 0, 0.5);
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
             color: white;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            font-size: 18px;
-            z-index: 2; /* Ensure buttons are above the video */
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
         @media (max-width: 768px) {
             /* Adjust styles for tablets and mobile devices */
             video {
                 object-fit: cover;
+            }
+            .page-number {
+                font-size: 30px;
             }
         }
     </style>
@@ -55,20 +51,18 @@
 <body>
     <div class="container">
         <div class="slider">
-            <video src="Offers_drunk_monkey.mp4" autoplay loop muted></video>
-            
-        </div>
-        <div class="buttons">
-            <button onclick="prevSlide()">&#10094;</button>
-            <button onclick="nextSlide()">&#10095;</button>
+            <div class="slide">
+                <video src="Offers_drunk_monkey.mp4" autoplay loop muted></video>
+                <div class="page-number">1</div>
+            </div>
         </div>
     </div>
 
     <script>
         let currentIndex = 0;
         const slider = document.querySelector(".slider");
-        const totalSlides = document.querySelectorAll("video").length;
-        
+        const totalSlides = document.querySelectorAll(".slide").length;
+
         function updateSlide() {
             slider.style.transform = `translateX(-${currentIndex * 100}vw)`; // Move the slider based on the current slide index
         }
@@ -81,15 +75,7 @@
             }
             updateSlide();
         }
-        
-        function prevSlide() {
-            if (currentIndex > 0) {
-                currentIndex--;
-            } else {
-                currentIndex = totalSlides - 1;
-            }
-            updateSlide();
-        }
     </script>
 </body>
 </html>
+
