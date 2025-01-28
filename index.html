@@ -3,73 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drunken Monkey Offers</title>
+    <title>Fullscreen Video Slides</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
         .container {
             position: relative;
-            width: 80%;
-            max-width: 600px;
+            width: 100vw;
+            height: 100vh;
+        }
+        .slider {
+            display: flex;
+            width: 400vw;
+            height: 100vh;
+            transition: transform 0.5s ease-in-out;
         }
         video {
-            width: 100%;
-            display: none;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            flex-shrink: 0;
         }
         .buttons {
-            margin-top: 10px;
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
         }
         button {
-            padding: 10px;
-            margin: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
             cursor: pointer;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <video id="video1" src="video1.mp4" controls></video>
+        <div class="slider">
+            <video src="video1.mp4" autoplay loop muted></video>
 
-    </div>
-    <div class="buttons">
-        <button onclick="prevPage()">Previous</button>
-        <button onclick="nextPage()">Next</button>
+        </div>
+        <div class="buttons">
+            <button onclick="prevSlide()">&#10094;</button>
+            <button onclick="nextSlide()">&#10095;</button>
+        </div>
     </div>
 
     <script>
-        let currentPage = 0;
-        const videos = document.querySelectorAll("video");
+        let currentIndex = 0;
+        const slider = document.querySelector(".slider");
+        const totalSlides = document.querySelectorAll("video").length;
         
-        function showPage(index) {
-            videos.forEach(video => {
-                video.style.display = "none";
-                video.pause();
-            });
-            videos[index].style.display = "block";
+        function updateSlide() {
+            slider.style.transform = `translateX(-${currentIndex * 100}vw)`;
         }
         
-        function nextPage() {
-            if (currentPage < videos.length - 1) {
-                currentPage++;
-                showPage(currentPage);
+        function nextSlide() {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
             }
+            updateSlide();
         }
         
-        function prevPage() {
-            if (currentPage > 0) {
-                currentPage--;
-                showPage(currentPage);
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = totalSlides - 1;
             }
+            updateSlide();
         }
-        
-        showPage(currentPage);
     </script>
 </body>
 </html>
